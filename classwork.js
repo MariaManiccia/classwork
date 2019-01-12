@@ -5,8 +5,28 @@ function Player(name, position, offense, defense) {
     this.position = position;
     this.offense = offense;
     this.defense = defense;
-    this.goodGame = function () { };
-    this.badGame = function () { };
+    this.goodGame = function () {
+        var coinflip = getRandomNumber(0, 1);
+        if (coinflip == 0) {
+            this.offense++;
+            console.log(this.name + " 's offense has gone up!");
+        }
+        else {
+            this.defense++;
+            console.log(this.name + " 's defense has gone up!");
+        }
+    };
+    this.badGame = function () {
+        var coinflip = getRandomNumber(0, 1);
+        if (coinflip == 0) {
+            this.offense--;
+            console.log(this.name + " 's offense has gone down!");
+        }
+        else {
+            this.defense--;
+            console.log(this.name + " 's defense has gone down!");
+        }
+    };
     this.printStats = function () {
         console.log("Name: " + this.name + "\nPosition: " + this.position +
             "\nOffense: " + this.offense + "\nDefense: " + this.defense);
@@ -21,11 +41,11 @@ var starterArr = [];
 var subArr = [];
 
 function getRandomNumberOne() {
-    return getRandomNumber(1,20);
+    return getRandomNumber(1, 20);
 };
 
 function getRandomNumberTwo() {
-    return getRandomNumber(1,20);
+    return getRandomNumber(1, 20);
 };
 function createPlayer() {
     if (count < 3) {
@@ -88,11 +108,13 @@ function getRandomNumber(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
 
-    return Math.floor(Math.random()*(max - min + 1)) + min;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function playGame() {
     if (gameCount < 5) {
+        var round = gameCount + 1;
+        console.log("Round: " + round);
         var randNumberOne = getRandomNumberOne();
         var randNumberTwo = getRandomNumberTwo();
 
@@ -117,7 +139,7 @@ function playGame() {
         } else {
             console.log("Your offense wasn't enough!");
         }
-        if (randNumberTwo > defSum){
+        if (randNumberTwo > defSum) {
             score--;
             console.log("You lost a point!  Score: " + score);
         } else {
@@ -126,10 +148,37 @@ function playGame() {
         console.log("Your current score: " + score);
         gameCount++;
         playGame();
-        
-    }
 
+    }
 }
 
-
+function subPlayer() {
+    inquirer.prompt([
+        {
+            name: "confirm",
+            type: "confirm",
+            message: "Would you like to make a substitution?"
+        }
+    ]).then(function (answer) {
+        if (answer.confirm === true)
+            inquirer.prompt([
+                {
+                    name: "bench",
+                    type: "rawlist",
+                    message: "Who would you like to substitute in?",
+                    choices: subArr
+                }
+            ]).then(function (subIn) {
+                var sideline = {};
+                var number = 0;
+                for (var i = 0; i < subArr.length; i++) {
+                    if (subs[i].name === subIn.subArr) {
+                        number = i;
+                        sideline = subs[i];
+                    }
+                }
+            })
+    }
+    )
+}
 createPlayer();
