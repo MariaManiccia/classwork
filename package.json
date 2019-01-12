@@ -1,0 +1,23 @@
+{
+  "name": "classwork",
+  "version": "1.0.0",
+  "description": "",
+  "main": "classwork.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MariaManiccia/classwork.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MariaManiccia/classwork/issues"
+  },
+  "homepage": "https://github.com/MariaManiccia/classwork#readme",
+  "dependencies": {
+    "inquirer": "^6.2.1"
+  }
+}
